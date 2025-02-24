@@ -5,20 +5,31 @@ SHORT_BREAK=5 # 5 minutes
 LONG_BREAK=15 # 15 minutes
 ALERT_MESSAGE="Pomodoro completed."
 
-function run_pomodoro() {
-  echo "POMODORO START"
+#--- FUNCTION: Countdown Timer ---
+function countdown() {
+  local time=$1  # Duration in minutes
+  local total_seconds=$((time * 60))
+
+  echo
+  echo "⏳ Timer started for $time minutes..."
   echo
 
-  for i in $(seq 1 $((FOCUS_TIME * 60))) # Convert minutes to seconds
-  do
+  for ((i = total_seconds; i > 0; i--)); do
+    echo -ne "$(printf "%02d:%02d" $((i / 60)) $((i % 60)))\r"
     sleep 1
-    rem=$(( (FOCUS_TIME * 60) - i ))
-    echo -ne "$((rem / 60)) : $((rem % 60))\\r"
   done
 
+  echo -e "\n⏰ Time's up!"
   echo
+}
+
+#--- FUNCTION: Run a Single Pomodoro Session ---
+function run_pomodoro() {
+  echo "🔥 Pomodoro #$((POMODORO_COUNT + 1)) - Focus for $FOCUS_TIME minutes."
+  countdown $FOCUS_TIME
+  echo $ALERT_MESSAGE
+  ((POMODORO_COUNT++))
   echo
-  echo ALERT_MESSAGE
 }
 
 #--- MAIN LOOP ---
