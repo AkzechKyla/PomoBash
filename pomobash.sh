@@ -32,9 +32,21 @@ function run_pomodoro() {
   echo
 }
 
+#--- FUNCTION: Take a Break (Short or Long) ---
+function take_break() {
+  if ((POMODORO_COUNT % 4 == 0)); then
+    echo "🌿 Take a long break! ($LONG_BREAK minutes)"
+    countdown $LONG_BREAK
+  else
+    echo "☕ Take a short break! ($SHORT_BREAK minutes)"
+    countdown $SHORT_BREAK
+  fi
+}
+
 #--- MAIN LOOP ---
 while true; do
   run_pomodoro
+  take_break
 
   echo "➡️  Press [Enter] to start the next Pomodoro or Ctrl+C to exit."
   read
