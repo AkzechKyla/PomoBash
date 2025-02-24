@@ -5,7 +5,7 @@ SHORT_BREAK=5 # 5 minutes
 LONG_BREAK=15 # 15 minutes
 ALERT_MESSAGE="Pomodoro completed."
 
-function start() {
+function run_pomodoro() {
   echo "POMODORO START"
   echo
 
@@ -21,4 +21,10 @@ function start() {
   echo ALERT_MESSAGE
 }
 
-start
+#--- MAIN LOOP ---
+while true; do
+  run_pomodoro
+
+  echo "➡️  Press [Enter] to start the next Pomodoro or Ctrl+C to exit."
+  read
+done
