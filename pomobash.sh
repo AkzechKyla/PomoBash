@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
 #--- DEFAULT VALUES ---
-FOCUS_TIME=25       # 25 minutes
-SHORT_BREAK=5       # 5 minutes
-LONG_BREAK=15       # 15 minutes
-POMODORO_COUNT=0    # Pomodoro counter
-paused=false        # Paused flag
+FOCUS_TIME=25             # 25 minutes
+SHORT_BREAK=5             # 5 minutes
+LONG_BREAK=15             # 15 minutes
+POMODORO_COUNT=0          # Pomodoro counter
+paused=false              # Paused flag
+auto_start_pomodoro=false # Auto-start pomodoro flag
+auto_start_break=false    # Auto-start break flag
 
 #--- FUNCTION: Countdown Timer with Pause/Resume/Quit ---
 function countdown() {
@@ -24,17 +26,17 @@ function countdown() {
       read -n 1 -s keypress && handle_input $keypress
     done
 
-    # Exit if user quits
-    if [[ $keypress == "q" ]]; then
-      echo -e "\n🚪 Exiting Pomodoro Timer."
-      exit 0
-    fi
-
     echo -ne "$(printf "%02d:%02d" $((i / 60)) $((i % 60)))\r"
   done
 
   echo -e "\n⏰ Time's up!\n"
   espeak "Time's up!"
+
+  if [[ "$auto_start_break" != true ]]; then
+      echo "➡️  Press [Enter] to start the next timer or Ctrl+C to exit."
+      read
+  fi
+
 }
 
 #--- FUNCTION: Handle Key Inputs ---
@@ -77,6 +79,9 @@ while true; do
   run_pomodoro
   take_break
 
-  echo "➡️  Press [Enter] to start the next Pomodoro or Ctrl+C to exit."
-  read
+  if [[ "$auto_start_pomodoro" != true ]]; then
+      echo "➡️  Press [Enter] to start the next Pomodoro or Ctrl+C to exit."
+    read
+  fi
+
 done
