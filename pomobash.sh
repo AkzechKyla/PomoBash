@@ -34,6 +34,7 @@ function countdown() {
   done
 
   echo -e "\n⏰ Time's up!\n"
+  espeak "Time's up!"
 }
 
 #--- FUNCTION: Handle Key Inputs ---
@@ -48,6 +49,7 @@ function handle_input() {
 #--- FUNCTION: Run a Single Pomodoro Session ---
 function run_pomodoro() {
   echo "🔥 Pomodoro #$((POMODORO_COUNT + 1)) - Focus for $FOCUS_TIME minutes."
+  espeak "Focus for $FOCUS_TIME minutes."
   countdown $FOCUS_TIME
   ((POMODORO_COUNT++))
 }
@@ -56,11 +58,14 @@ function run_pomodoro() {
 function take_break() {
   if ((POMODORO_COUNT % 4 == 0)); then
     echo "🌿 Take a long break! ($LONG_BREAK minutes)"
+    espeak "Take a long break for $LONG_BREAK minutes."
     countdown $LONG_BREAK
     echo "🎉 Congratulations! You've completed a Pomodoro cycle."
+    espeak "Congratulations! You've completed a Pomodoro cycle."
     echo "-------------------------------------------------------"
   else
     echo "☕ Take a short break! ($SHORT_BREAK minutes)"
+    espeak "Take a short break for $SHORT_BREAK minutes."
     countdown $SHORT_BREAK
   fi
   echo
