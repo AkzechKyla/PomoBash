@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# Configuration file path
+#--- CONFIGURATION FILE PATH ---
 CONFIG_FILE="pomo.conf"
 
-# Load configuration from file (if it exists)
+#-- LOAD CONFIGURATION ---
 if [[ -f "$CONFIG_FILE" ]]; then
-  source "$CONFIG_FILE"  # Loads variables from the config file
+  source "$CONFIG_FILE"  # Load variables from the config file
 else # Create a new configuration file with default values
   echo "FOCUS_TIME=25" >> $CONFIG_FILE
   echo "SHORT_BREAK=5" >> $CONFIG_FILE
@@ -16,7 +16,7 @@ else # Create a new configuration file with default values
 fi
 
 #--- DEFAULT VALUES ---
-POMODORO_COUNT=0   # Pomodoro counter
+POMODORO_COUNT=0   # Pomodoro cycle count
 paused=false       # Paused flag
 
 #--- FUNCTION: Countdown Timer with Pause/Resume/Quit ---

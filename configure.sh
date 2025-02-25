@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Configuration file path
+#--- CONFIGURATION FILE PATH ---
 CONFIG_FILE="pomo.conf"
 
 #--- DEFAULT VALUES ---
@@ -10,9 +10,9 @@ LONG_BREAK=15             # 15 minutes
 AUTO_START_POMODORO=false # Auto-start pomodoro flag
 AUTO_START_BREAK=false    # Auto-start break flag
 
-# Load configuration from file (if it exists)
+#-- LOAD CONFIGURATION ---
 if [[ -f "$CONFIG_FILE" ]]; then
-  source "$CONFIG_FILE"  # Loads variables from the config file
+  source "$CONFIG_FILE"
 fi
 
 #--- FUNCTION: Ensure user input is a positive integer ---
@@ -57,7 +57,6 @@ function handle_boolean_input() {
 }
 
 #--- MAIN PROMPTS ---
-
 echo -e "\nConfigure your Pomodoro settings:\n"
 
 echo -e "1. Focus Time (minutes) [current: $FOCUS_TIME]: \c"
@@ -76,7 +75,6 @@ echo -e "5. Auto-start Break time? [y/n] [current: $AUTO_START_BREAK]: \c"
 handle_boolean_input $AUTO_START_BREAK AUTO_START_BREAK
 
 #--- DISPLAY UPDATED SETTINGS ---
-
 echo -e "\nUpdated Pomodoro settings:\n"
 echo -e "FOCUS TIME: $FOCUS_TIME minutes"
 echo -e "SHORT BREAK: $SHORT_BREAK minutes"
@@ -85,7 +83,6 @@ echo -e "AUTO-START POMODORO: $AUTO_START_POMODORO"
 echo -e "AUTO-START BREAK: $AUTO_START_BREAK"
 
 #--- SAVE CONFIGURATION TO FILE ---
-
 cat << EOF > "$CONFIG_FILE"
 FOCUS_TIME=$FOCUS_TIME
 SHORT_BREAK=$SHORT_BREAK
@@ -94,4 +91,4 @@ AUTO_START_POMODORO=$AUTO_START_POMODORO
 AUTO_START_BREAK=$AUTO_START_BREAK
 EOF
 
-echo -e "\n✅ Pomodoro settings updated and saved to $CONFIG_FILE!\n"
+echo -e "\n✅ Pomodoro settings updated!\n"
