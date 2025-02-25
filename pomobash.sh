@@ -1,13 +1,23 @@
 #!/usr/bin/env bash
 
+# Configuration file path
+CONFIG_FILE="pomo.conf"
+
+# Load configuration from file (if it exists)
+if [[ -f "$CONFIG_FILE" ]]; then
+  source "$CONFIG_FILE"  # Loads variables from the config file
+else # Create a new configuration file with default values
+  echo "FOCUS_TIME=25" >> $CONFIG_FILE
+  echo "SHORT_BREAK=5" >> $CONFIG_FILE
+  echo "LONG_BREAK=15" >> $CONFIG_FILE
+  echo "AUTO_START_POMODORO=false" >> $CONFIG_FILE
+  echo "AUTO_START_BREAK=false" >> $CONFIG_FILE
+  source "$CONFIG_FILE"
+fi
+
 #--- DEFAULT VALUES ---
-FOCUS_TIME=25             # 25 minutes
-SHORT_BREAK=5             # 5 minutes
-LONG_BREAK=15             # 15 minutes
-POMODORO_COUNT=0          # Pomodoro counter
-paused=false              # Paused flag
-auto_start_pomodoro=false # Auto-start pomodoro flag
-auto_start_break=false    # Auto-start break flag
+POMODORO_COUNT=0   # Pomodoro counter
+paused=false       # Paused flag
 
 #--- FUNCTION: Countdown Timer with Pause/Resume/Quit ---
 function countdown() {
@@ -32,7 +42,7 @@ function countdown() {
   echo -e "\n⏰ Time's up!\n"
   espeak "Time's up!"
 
-  if [[ "$auto_start_break" != true ]]; then
+  if [[ "$AUTO_START_BREAK" != true ]]; then
       echo "➡️  Press [Enter] to start the next timer or Ctrl+C to exit."
       read
   fi
@@ -43,7 +53,7 @@ function countdown() {
 function handle_input() {
   case $1 in
     p)  echo -e "\n⏸️  Timer paused. Press 'r' to resume." && paused=true ;;
-    r)  echo -e "\n▶️  Timer resumed." && paused=false ;;
+    r)  echo -e "\n▶️  Timer resumed.\n" && paused=false ;;
     q)  echo -e "\n🚪 Exiting Pomodoro Timer." && exit 0 ;;
   esac
 }
@@ -79,7 +89,7 @@ while true; do
   run_pomodoro
   take_break
 
-  if [[ "$auto_start_pomodoro" != true ]]; then
+  if [[ "$AUTO_START_POMODORO" != true ]]; then
       echo "➡️  Press [Enter] to start the next Pomodoro or Ctrl+C to exit."
     read
   fi
