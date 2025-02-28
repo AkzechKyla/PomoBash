@@ -29,7 +29,7 @@ function countdown() {
 
   for ((i = total_seconds; i >= 0; i--)); do
     # Wait for user input asynchronously
-    read -t 1 -n 1 keypress && handle_input $keypress
+    read -t 1 -n 1 -s keypress && handle_input $keypress
 
     # Pause execution if paused is true
     while $paused; do
