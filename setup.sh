@@ -1,5 +1,5 @@
 # Clone repository
-git clone git@github.com/AkzechKyla/PomoBash.git
+git clone git@github.com:AkzechKyla/PomoBash.git
 cd PomoBash
 
 # Make the scripts executable
