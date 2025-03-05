@@ -9,21 +9,9 @@ A simple [Pomodoro](https://en.wikipedia.org/wiki/Pomodoro_Technique) timer you 
 ## Dependencies
 - ``espeak`` for voice notifications
 ## Installation
-1. Clone the repository:
-   ```bash
-   git clone git@github.com:AkzechKyla/PomoBash.git
-   cd PomoBash
-   ```
-2. Make the scripts executable:
-   ```bash
-   chmod +x configure.sh
-   chmod +x pomobash.sh
-   ```
-3. Install dependency:
-   ```bash
-   sudo apt update
-   sudo apt install espeak
-   ```
+```bash
+curl https://raw.githubusercontent.com/AkzechKyla/PomoBash/refs/heads/main/setup.sh | bash
+```
 ## Usage
 To run pomodoro:
 ```bash
